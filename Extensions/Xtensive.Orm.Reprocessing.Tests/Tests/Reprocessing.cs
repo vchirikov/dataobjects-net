@@ -14,6 +14,8 @@ namespace Xtensive.Orm.Reprocessing.Tests
 {
   public class Reprocessing : AutoBuildTest
   {
+    private bool treatNullAsUniqueValue;
+
     private int Bar2Count()
     {
       return Domain.Execute(session => Queryable.Count(session.Query.All<Bar2>()));
@@ -189,6 +191,12 @@ namespace Xtensive.Orm.Reprocessing.Tests
       }
     }
 
+    public override void SetUp()
+    {
+      base.SetUp();
+      treatNullAsUniqueValue = Domain.StorageProviderInfo.ProviderName==WellKnown.Provider.SqlServer;
+    }
+
     [Test]
     public void Test()
     {
@@ -327,9 +335,11 @@ namespace Xtensive.Orm.Reprocessing.Tests
           i++;
           if (i < 5)
             new Foo(session, i);
-        }
-        );
-      Assert.That(i, Is.EqualTo(5));
+        });
+      if (treatNullAsUniqueValue)
+        Assert.That(i, Is.EqualTo(5));
+      else
+        Assert.That(i, Is.EqualTo(1));
     }
 
     [Test]
