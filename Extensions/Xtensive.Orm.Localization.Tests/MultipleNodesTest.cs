@@ -29,6 +29,16 @@ namespace Xtensive.Orm.Localization.Tests
     private static string SpanishTitle = "Bienvenido!";
     private static string SpanishContent = "Mis amigos mejores! Bienvenido a mi cumpleanos!";
 
+    public override void SetUp()
+    {
+      var connection = TestConfiguration.Instance.GetConnectionInfo(TestConfiguration.Instance.Storage);
+      var provider = connection.Provider ?? connection.ConnectionUrl.Protocol;
+      if (provider!=WellKnown.Provider.SqlServer)
+        throw new IgnoreException("The test is for MS SQL Server only.");
+
+      base.SetUp();
+    }
+
     protected override Domain BuildDomain(DomainConfiguration configuration)
     {
       var domain = base.BuildDomain(configuration);
