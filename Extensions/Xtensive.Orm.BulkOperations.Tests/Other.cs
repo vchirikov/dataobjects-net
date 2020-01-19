@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using TestCommon.Model;
+using Xtensive.Orm.Configuration;
 using Xtensive.Orm.Rse;
 
 namespace Xtensive.Orm.BulkOperations.Tests
@@ -14,13 +15,14 @@ namespace Xtensive.Orm.BulkOperations.Tests
     {
       using (Session session = Domain.OpenSession()) {
         using (TransactionScope trx = session.OpenTransaction()) {
-          DateTime date1 = DateTime.Now;
-          DateTime date2 = DateTime.Now.AddDays(1);
+          DateTime date1 = FixDateTimeForPK(DateTime.Now);
+          DateTime date2 = FixDateTimeForPK(DateTime.Now.AddDays(1));
           Guid id1 = Guid.NewGuid();
           Guid id2 = Guid.NewGuid();
           var foo1 = new Bar2(session, date1, id1) {Name = "test"};
           var foo2 = new Bar2(session, date2, id1);
           var foo3 = new Bar2(session, date2, id2) {Name = "test"};
+          session.SaveChanges();
           int updated = session.Query.All<Bar2>().Where(a => a.Name=="test").Set(a => a.Name, "abccba").Update();
           Assert.That(updated, Is.EqualTo(2));
           Assert.That(foo1.Name, Is.EqualTo("abccba"));
@@ -128,8 +130,9 @@ namespace Xtensive.Orm.BulkOperations.Tests
     }
 
     [Test]
-    public void SubqueryUpdate()
+    public void SubqueryUpdate1()
     {
+      CheckSetFromSelectSupported();
       using (Session session = Domain.OpenSession()) {
         using (TransactionScope trx = session.OpenTransaction()) {
           var bar = new Bar(session);
@@ -154,8 +157,29 @@ namespace Xtensive.Orm.BulkOperations.Tests
     }
 
     [Test]
-    public void UpdateViaSet()
+    public void SubqueryUpdate2()
     {
+      CheckSetFromSelectUnsupported();
+      using (Session session = Domain.OpenSession()) {
+        using (TransactionScope trx = session.OpenTransaction()) {
+          var bar = new Bar(session);
+          var bar2 = new Bar(session) { Count = 1 };
+          new Foo(session) { Bar = bar, Name = "test" };
+          new Foo(session) { Bar = bar, Name = "test1" };
+          Assert.Throws<StorageException>(
+            () => session.Query.All<Bar>().Where(a => a.Count==session.Query.All<Bar>().Max(b => b.Count) + 1)
+                    .Set(a => a.Count, a => session.Query.All<Bar>().Min(b => b.Count))
+                    .Update());
+
+          trx.Complete();
+        }
+      }
+    }
+
+    [Test]
+    public void UpdateViaSet1()
+    {
+      CheckGroupSetApplication();
       using (Session session = Domain.OpenSession()) {
         using (TransactionScope trx = session.OpenTransaction()) {
           var bar1 = new Bar(session) {Name = "test", Count = 3};
@@ -167,6 +191,28 @@ namespace Xtensive.Orm.BulkOperations.Tests
               a => a.Count, a => a.Count * 2).Set(a => a.Description, a => a.Name + s1).Update();
           Assert.That(bar1.Name, Is.EqualTo("abccba"));
           Assert.That(bar1.Description, Is.EqualTo("testabccba"));
+          Assert.That(bar1.Count, Is.EqualTo(6));
+          Assert.That(updated, Is.EqualTo(1));
+          trx.Complete();
+        }
+      }
+    }
+
+    [Test]
+    public void UpdateViaSet2()
+    {
+      CheckOneByOneSetApplication();
+      using (Session session = Domain.OpenSession()) {
+        using (TransactionScope trx = session.OpenTransaction()) {
+          var bar1 = new Bar(session) {Name = "test", Count = 3};
+          var bar2 = new Bar(session);
+          string s = "test";
+          string s1 = "abccba";
+          int updated =
+            session.Query.All<Bar>().Where(a => a.Name.Contains(s)).Set(a => a.Name, s1).Set(
+              a => a.Count, a => a.Count * 2).Set(a => a.Description, a => a.Name + s1).Update();
+          Assert.That(bar1.Name, Is.EqualTo("abccba"));
+          Assert.That(bar1.Description, Is.EqualTo("abccbaabccba"));
           Assert.That(bar1.Count, Is.EqualTo(6));
           Assert.That(updated, Is.EqualTo(1));
           trx.Complete();
@@ -241,6 +287,57 @@ namespace Xtensive.Orm.BulkOperations.Tests
 
         trx.Complete();
       }
+    }
+
+    private void CheckSetFromSelectSupported()
+    {
+      if (Domain.StorageProviderInfo.ProviderName==WellKnown.Provider.MySql)
+        throw new IgnoreException("Test is inconclusive for current provider");
+    }
+
+    private void CheckSetFromSelectUnsupported()
+    {
+      if (Domain.StorageProviderInfo.ProviderName!=WellKnown.Provider.MySql)
+        throw new IgnoreException("Test is inconclusive for current provider");
+    }
+
+    private void CheckOneByOneSetApplication()
+    {
+      if (Domain.StorageProviderInfo.ProviderName!=WellKnown.Provider.MySql)
+        throw new IgnoreException("Test is inconclusive for current provider");
+    }
+
+    private void CheckGroupSetApplication()
+    {
+      if (Domain.StorageProviderInfo.ProviderName==WellKnown.Provider.MySql)
+        throw new IgnoreException("Test is inconclusive for current provider");
+    }
+
+    private DateTime FixDateTimeForPK(DateTime origin)
+    {
+      var currentProvider = Domain.StorageProviderInfo.ProviderName;
+
+      long? divider;
+      switch (currentProvider) {
+        case WellKnown.Provider.MySql:
+          divider = 10000000;
+          break;
+        case WellKnown.Provider.Firebird:
+          divider = 1000;
+          break;
+        case WellKnown.Provider.PostgreSql:
+          divider = 10;
+          break;
+        default:
+          divider = (long?) null;
+          break;
+      }
+
+      if (!divider.HasValue)
+        return origin;
+      var ticks = origin.Ticks;
+      var newTicks = ticks - (ticks % divider.Value);
+      return new DateTime(newTicks);
     }
   }
 }

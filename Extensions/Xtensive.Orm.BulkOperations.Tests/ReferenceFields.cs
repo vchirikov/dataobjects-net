@@ -33,7 +33,7 @@ namespace Xtensive.Orm.BulkOperations.Tests
     {
       using (Session session = Domain.OpenSession()) {
         using (TransactionScope trx = session.OpenTransaction()) {
-          var bar = new Bar2(session, DateTime.Now, Guid.NewGuid());
+          var bar = new Bar2(session, FixDateTimeForPK(DateTime.Now), Guid.NewGuid());
           var foo = new Foo2(session, 1, "1");
 
           Key key = session.Query.Insert(() => new Foo2(null, 0, null) {Bar = bar, Id = 0, Id2 = "test", Name = "test"});
@@ -302,7 +302,7 @@ namespace Xtensive.Orm.BulkOperations.Tests
     {
       using (Session session = Domain.OpenSession()) {
         using (TransactionScope trx = session.OpenTransaction()) {
-          DateTime date = DateTime.Now;
+          DateTime date = FixDateTimeForPK(DateTime.Now);
           Guid id = Guid.NewGuid();
           var bar = new Bar2(session, date, id);
           var foo = new Foo2(session, 1, "1");
@@ -458,9 +458,9 @@ namespace Xtensive.Orm.BulkOperations.Tests
     {
       using (Session session = Domain.OpenSession()) {
         using (TransactionScope trx = session.OpenTransaction()) {
-          var bar = new Bar2(session, DateTime.Now, Guid.NewGuid());
+          var bar = new Bar2(session, FixDateTimeForPK(DateTime.Now), Guid.NewGuid());
           var foo = new Foo2(session, 1, "1");
-          var bar2 = new Bar2(session, DateTime.Now, Guid.NewGuid());
+          var bar2 = new Bar2(session, FixDateTimeForPK(DateTime.Now), Guid.NewGuid());
           session.Query.All<Foo2>().Set(a => a.Bar, bar).Update();
           Assert.That(bar, Is.EqualTo(foo.Bar));
           session.Query.All<Foo2>().Set(a => a.Bar, (Bar2) null).Update();
@@ -472,6 +472,33 @@ namespace Xtensive.Orm.BulkOperations.Tests
           trx.Complete();
         }
       }
+    }
+
+    private DateTime FixDateTimeForPK(DateTime origin)
+    {
+      var currentProvider = Domain.StorageProviderInfo.ProviderName;
+
+      long? divider;
+      switch (currentProvider) {
+        case WellKnown.Provider.MySql:
+          divider = 10000000;
+          break;
+        case WellKnown.Provider.Firebird:
+          divider = 1000;
+          break;
+        case WellKnown.Provider.PostgreSql:
+          divider = 10;
+          break;
+        default:
+          divider = (long?) null;
+          break;
+      }
+
+      if (!divider.HasValue)
+        return origin;
+      var ticks = origin.Ticks;
+      var newTicks = ticks - (ticks % divider.Value);
+      return new DateTime(newTicks);
     }
   }
 }
