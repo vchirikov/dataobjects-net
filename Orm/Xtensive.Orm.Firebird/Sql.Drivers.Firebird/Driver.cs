@@ -33,6 +33,7 @@ namespace Xtensive.Sql.Drivers.Firebird
         case 335544347: //  exactly: validation error for column
         case 335544558: //  exactly: operation violates check constraint
           return SqlExceptionType.CheckConstraintViolation;
+        case 335544349:
         case 335544665:
           return SqlExceptionType.UniqueConstraintViolation;
         case 335544466:

@@ -38,6 +38,7 @@ namespace Xtensive.Sql.Drivers.MySql
         case 1149:
           return SqlExceptionType.SyntaxError;
         case 1169:
+        case 1062:
           return SqlExceptionType.UniqueConstraintViolation;
         case 1205:
           return SqlExceptionType.OperationTimeout;
