@@ -14,12 +14,6 @@
     <AssemblyOriginatorKeyFile>..\Extensions.snk</AssemblyOriginatorKeyFile>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
-  <PropertyGroup Label="Debug" Condition="'$(Configuration)'=='Debug'">
-    <DebugType>full</DebugType>
-  </PropertyGroup>
-  <PropertyGroup Label="Release" Condition="'$(Configuration)'=='Release'">
-    <DebugType>portable</DebugType>
-  </PropertyGroup>
   <ItemGroup>
     <None Include="Readme.txt" />
   </ItemGroup>

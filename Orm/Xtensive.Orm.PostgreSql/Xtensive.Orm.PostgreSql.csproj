@@ -19,11 +19,9 @@
     <WarningLevel>2</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Label="Debug" Condition="'$(Configuration)'=='Debug'">
-    <DebugType>full</DebugType>
     <DefineConstants>TRACE;DEBUG;NETSTANDARD</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Label="Release" Condition="'$(Configuration)'=='Release'">
-    <DebugType>portable</DebugType>
     <DefineConstants>TRACE;NETSTANDARD</DefineConstants>
   </PropertyGroup>
   <ItemGroup>

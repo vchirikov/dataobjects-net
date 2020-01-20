@@ -15,10 +15,6 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <WarningLevel>2</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Label="Debug" Condition="'$(Configuration)'=='Debug'" />
-  <PropertyGroup Label="Release" Condition="'$(Configuration)'=='Release'">
-    <DebugType>portable</DebugType>
-  </PropertyGroup>
   <Import Project="..\..\MSBuild\DataObjects.Net.InternalBuild.targets" />
   <ItemGroup>
     <!-- <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" /> -->

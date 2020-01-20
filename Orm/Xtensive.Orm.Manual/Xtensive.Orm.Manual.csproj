@@ -19,7 +19,6 @@
     <DefineConstants>TRACE;DEBUG;NETCOREAPP</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
-    <DebugType>portable</DebugType>
     <DefineConstants>TRACE;NETCOREAPP</DefineConstants>
   </PropertyGroup>
   <Import Project="..\..\MSBuild\DataObjects.Net.InternalBuild.targets" />

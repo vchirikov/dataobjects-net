@@ -4,17 +4,12 @@
     <EnableDefaultItems>false</EnableDefaultItems>
     <OutputPath>..\..\_Build\$(Configuration)\lib\</OutputPath>
     <DocumentationFile />
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
-  <PropertyGroup Label="Debug" Condition="'$(Configuration)'=='Debug'">
-    <DebugType>full</DebugType>
-  </PropertyGroup>
-  <PropertyGroup Label="Release" Condition="'$(Configuration)'=='Release'">
-    <Optimize>false</Optimize>
-    <DebugType>portable</DebugType>
-  </PropertyGroup>
+  <PropertyGroup Label="Release" Condition="'$(Configuration)'=='Release'" />
   <Import Project="..\..\MSBuild\DataObjects.Net.InternalBuild.targets" />
   <ItemGroup>
     <Compile Include="AutoBuildTest.cs" />

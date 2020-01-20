@@ -15,12 +15,6 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\Extensions.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
-  <PropertyGroup Label="Debug" Condition="'$(Configuration)'=='Debug'">
-    <DebugType>full</DebugType>
-  </PropertyGroup>
-  <PropertyGroup Label="Release" Condition="'$(Configuration)'=='Release'">
-    <DebugType>portable</DebugType>
-  </PropertyGroup>
   <Import Project="..\..\MSBuild\DataObjects.Net.InternalBuild.targets" />
   <ItemGroup>
     <Compile Include="Configuration\Elements\DefaultCultureConfigurationElement.cs" />

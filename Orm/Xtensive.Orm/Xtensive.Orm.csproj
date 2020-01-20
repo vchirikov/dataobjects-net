@@ -17,11 +17,9 @@
     <WarningLevel>2</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Label="Debug" Condition="'$(Configuration)'=='Debug'">
-    <DebugType>full</DebugType>
     <DefineConstants>TRACE;DEBUG;NETSTANDARD</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Label="Release" Condition="'$(Configuration)'=='Release'">
-    <DebugType>portable</DebugType>
     <DefineConstants>TRACE;NETSTANDARD</DefineConstants>
   </PropertyGroup>
   <Import Project="NuGetContent.targets" />
@@ -31,7 +29,6 @@
     <PackageReference Include="System.Reflection.Emit" Version="4.3.0" />
     <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.3.0" />
   </ItemGroup>
-
   <ItemGroup Label="T4GeneratorsUpdaters">
     <None Update="Arithmetic\Internal\PrimitiveArithmetics.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
