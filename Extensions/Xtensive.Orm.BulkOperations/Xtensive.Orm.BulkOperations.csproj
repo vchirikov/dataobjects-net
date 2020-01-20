@@ -1,7 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
-    <EnableDefaultItems>false</EnableDefaultItems>
     <IsPackable>true</IsPackable>
     <OutputPath>..\..\_Build\$(Configuration)\lib\</OutputPath>
     <DocumentationFile>..\..\_Build\$(Configuration)\lib\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
@@ -20,29 +18,8 @@
     <DebugType>full</DebugType>
   </PropertyGroup>
   <PropertyGroup Label="Release" Condition="'$(Configuration)'=='Release'">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>portable</DebugType>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="BulkExtensions.cs" />
-    <Compile Include="Internals\BaseSqlVisitor.cs" />
-    <Compile Include="Internals\BulkDeleteOperation.cs" />
-    <Compile Include="Internals\BulkUpdateOperation.cs" />
-    <Compile Include="Internals\ComputedExpressionSqlVisitor.cs" />
-    <Compile Include="Internals\AddValueContext.cs" />
-    <Compile Include="Internals\InsertOperation.cs" />
-    <Compile Include="Internals\Operation.cs" />
-    <Compile Include="Internals\ExpressionExtensions.cs" />
-    <Compile Include="Internals\ExpressionVisitor.cs" />
-    <Compile Include="Internals\Extensions.cs" />
-    <Compile Include="Internals\PrimaryIndexMapping.cs" />
-    <Compile Include="Internals\QueryOperation.cs" />
-    <Compile Include="Internals\SetDescriptor.cs" />
-    <Compile Include="Internals\SetStatement.cs" />
-    <Compile Include="Internals\Updatable.cs" />
-    <Compile Include="Internals\SetOperation.cs" />
-    <Compile Include="IUpdatable.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
   <ItemGroup>
     <None Include="Readme.txt" />
   </ItemGroup>

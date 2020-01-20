@@ -23,7 +23,7 @@
     <DefineConstants>TRACE;DEBUG;NETSTANDARD</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Label="Release" Condition="'$(Configuration)'=='Release'">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>portable</DebugType>
     <DefineConstants>TRACE;NETSTANDARD</DefineConstants>
   </PropertyGroup>
   <ItemGroup>

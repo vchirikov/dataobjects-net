@@ -19,7 +19,7 @@
     <DefineConstants>TRACE;DEBUG;NETCOREAPP</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Label="Release" Condition="'$(Configuration)'=='Release'">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>portable</DebugType>
     <DefineConstants>TRACE;NETCOREAPP</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
