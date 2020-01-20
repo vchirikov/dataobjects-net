@@ -1,50 +1,37 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <EnableDefaultItems>false</EnableDefaultItems>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <IsPackable>false</IsPackable>
+    <OutputPath>..\..\_Build\$(Configuration)\lib\</OutputPath>
   </PropertyGroup>
-
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <RuntimeFrameworkVersion>2.0.3</RuntimeFrameworkVersion>
-    <OutputType>Library</OutputType>
     <RootNamespace>Xtensive</RootNamespace>
-    <AssemblyName>Xtensive.Orm.Tests.Core</AssemblyName>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\Orm.snk</AssemblyOriginatorKeyFile>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <WarningLevel>2</WarningLevel>
   </PropertyGroup>
-
   <PropertyGroup Label="Debug" Condition="'$(Configuration)'=='Debug'">
-    <Optimize>false</Optimize>
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>..\..\_Build\Debug\lib\</OutputPath>
     <DefineConstants>TRACE;DEBUG;NETCOREAPP</DefineConstants>
   </PropertyGroup>
-
   <PropertyGroup Label="Release" Condition="'$(Configuration)'=='Release'">
-    <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
-    <OutputPath>..\..\_Build\Release\lib\</OutputPath>
     <DefineConstants>TRACE;NETCOREAPP</DefineConstants>
   </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Xtensive.Orm.Tests.Framework\Xtensive.Orm.Tests.Framework.csproj" />
     <ProjectReference Include="..\Xtensive.Orm\Xtensive.Orm.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <!--<PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />-->
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.2" />
     <PackageReference Include="NUnit" Version="3.12.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.15.0" />
   </ItemGroup>
-
   <ItemGroup>
     <Compile Include="ArgumentValidatorTest.cs" />
     <Compile Include="Arithmetics\AritmeticsTest.cs" />

@@ -3,13 +3,12 @@
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <EnableDefaultItems>false</EnableDefaultItems>
     <IsPackable>true</IsPackable>
+    <OutputPath>..\..\_Build\$(Configuration)\lib\</OutputPath>
+    <DocumentationFile>..\..\_Build\$(Configuration)\lib\$(TargetFramework)\Xtensive.Orm.Sqlite.xml</DocumentationFile>
   </PropertyGroup>
-
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <OutputType>Library</OutputType>
     <RootNamespace>Xtensive</RootNamespace>
-    <AssemblyName>Xtensive.Orm.Sqlite</AssemblyName>
     <PackageId>Xtensive.Orm.Sqlite</PackageId>
     <Title>$(DoProductName) provider for SQLite</Title>
     <AssemblyTitle>$(Title)</AssemblyTitle>
@@ -19,32 +18,18 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <WarningLevel>2</WarningLevel>
   </PropertyGroup>
-
   <PropertyGroup Label="Debug" Condition="'$(Configuration)'=='Debug'">
-    <Optimize>false</Optimize>
     <DebugType>full</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>..\..\_Build\Debug\lib\</OutputPath>
-    <DocumentationFile>..\..\_Build\Debug\lib\$(TargetFramework)\Xtensive.Orm.Sqlite.xml</DocumentationFile>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
   </PropertyGroup>
-
   <PropertyGroup Label="Release" Condition="'$(Configuration)'=='Release'">
-    <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
-    <OutputPath>..\..\_Build\Release\lib\</OutputPath>
-    <DocumentationFile>..\..\_Build\Release\lib\$(TargetFramework)\Xtensive.Orm.Sqlite.xml</DocumentationFile>
-    <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.109.2" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Xtensive.Orm\Xtensive.Orm.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <Compile Include="..\Xtensive.Orm\Properties\Visibility.cs">
       <Link>Properties\Visibility.cs</Link>
@@ -75,7 +60,6 @@
     <Compile Include="Sql.Drivers.Sqlite\v3\Translator.cs" />
     <Compile Include="Sql.Drivers.Sqlite\v3\TypeMapper.cs" />
   </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Include="Sql.Drivers.Sqlite\Resources\Strings.resx">
       <Generator>ResXFileCodeGenerator</Generator>

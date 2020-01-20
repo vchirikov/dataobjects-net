@@ -1,15 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <EnableDefaultItems>false</EnableDefaultItems>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <IsPackable>false</IsPackable>
+    <OutputPath>..\..\_Build\$(Configuration)\lib\</OutputPath>
   </PropertyGroup>
-
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <OutputType>Library</OutputType>
     <RootNamespace>Xtensive</RootNamespace>
     <AssemblyName>Xtensive.Orm.Tests.Manual</AssemblyName>
     <SignAssembly>true</SignAssembly>
@@ -17,33 +15,24 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <WarningLevel>2</WarningLevel>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
-    <DebugSymbols>true</DebugSymbols>
-    <Optimize>false</Optimize>
-    <OutputPath>..\..\_Build\Debug\lib\</OutputPath>
     <DefineConstants>TRACE;DEBUG;NETCOREAPP</DefineConstants>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>..\..\_Build\Release\lib\</OutputPath>
     <DefineConstants>TRACE;NETCOREAPP</DefineConstants>
   </PropertyGroup>
-
+  <Import Project="..\..\MSBuild\DataObjects.Net.InternalBuild.targets" />
   <ItemGroup>
     <ProjectReference Include="..\Xtensive.Orm.Tests.Framework\Xtensive.Orm.Tests.Framework.csproj" />
     <ProjectReference Include="..\Xtensive.Orm\Xtensive.Orm.csproj" />
   </ItemGroup>
-  
   <ItemGroup>
     <!-- <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" /> -->
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.2" />
     <PackageReference Include="NUnit" Version="3.12.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.15.0" />
   </ItemGroup>
-
   <ItemGroup>
     <Compile Include="Advanced\CustomLinqCompilerTest.cs" />
     <Compile Include="Advanced\CustomSqlCompilerTest.cs" />
@@ -80,8 +69,6 @@
     <Compile Include="Upgrade\UpgradeHandlerEnabler.cs" />
     <Compile Include="Upgrade\UpgradeTest.cs" />
   </ItemGroup>
-  
-  
   <ItemGroup>
     <Content Include="EntitySets\DatabaseSchema.gif" />
     <Content Include="EntitySets\ManyToManySchema.gif" />
@@ -90,7 +77,6 @@
     <Content Include="Structures\InheritanceMappingSchema.png" />
     <Content Include="Structures\MappingSchema.png" />
   </ItemGroup>
-  
   <ItemGroup>
     <Folder Include="LazyLoading\" />
   </ItemGroup>
@@ -99,5 +85,4 @@
     <None Include="Prefetch\Prefetch.sql" />
     <None Include="Structures\Diagrams.pptx" />
   </ItemGroup>
-  <Import Project="..\..\MSBuild\DataObjects.Net.InternalBuild.targets" />
 </Project>

@@ -3,39 +3,24 @@
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <EnableDefaultItems>false</EnableDefaultItems>
     <IsPackable>true</IsPackable>
+    <OutputPath>..\..\_Build\$(Configuration)\lib\</OutputPath>
+    <DocumentationFile>..\..\_Build\$(Configuration)\lib\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
-
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <OutputType>Library</OutputType>
-    <RootNamespace>Xtensive.Orm.Reprocessing</RootNamespace>
-    <AssemblyName>Xtensive.Orm.Reprocessing</AssemblyName>
     <PackageId>Xtensive.Orm.Reprocessing</PackageId>
     <Title>Operation reprocessing extension for $(DoProductName)</Title>
     <AssemblyTitle>$(Title)</AssemblyTitle>
     <PackageDescription>Adds support for reprocessable operations for $(DoProductName)-powered projects</PackageDescription>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\Extensions.snk</AssemblyOriginatorKeyFile>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-
   <PropertyGroup Label="Debug" Condition="'$(Configuration)'=='Debug'">
-    <Optimize>false</Optimize>
     <DebugType>full</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>..\..\_Build\Debug\lib\</OutputPath>
-    <DocumentationFile>..\..\_Build\Debug\lib\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
   </PropertyGroup>
-
   <PropertyGroup Label="Release" Condition="'$(Configuration)'=='Release'">
-    <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
-    <OutputPath>..\..\_Build\Release\lib\</OutputPath>
-    <DocumentationFile>..\..\_Build\Release\lib\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-    <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Include="Configuration\ConfigurationSection.cs" />
     <Compile Include="Configuration\ReprocessingConfiguration.cs" />
@@ -58,17 +43,13 @@
     <Compile Include="RollbackTransactionException.cs" />
     <Compile Include="StandardExecutionStrategy.cs" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\Orm\Xtensive.Orm\Xtensive.Orm.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <None Include="Readme.txt" />
   </ItemGroup>
-
 </Project>

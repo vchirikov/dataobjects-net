@@ -3,13 +3,12 @@
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <EnableDefaultItems>false</EnableDefaultItems>
     <IsPackable>true</IsPackable>
+    <OutputPath>..\..\_Build\$(Configuration)\lib\</OutputPath>
+    <DocumentationFile>..\..\_Build\$(Configuration)\lib\$(TargetFramework)\Xtensive.Orm.Oracle.xml</DocumentationFile>
   </PropertyGroup>
-
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
-    <OutputType>Library</OutputType>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Xtensive</RootNamespace>
-    <AssemblyName>Xtensive.Orm.Oracle</AssemblyName>
     <PackageId>Xtensive.Orm.Oracle</PackageId>
     <Title>$(DoProductName) provider for Oracle</Title>
     <AssemblyTitle>$(Title)</AssemblyTitle>
@@ -19,28 +18,15 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <WarningLevel>2</WarningLevel>
   </PropertyGroup>
-
   <PropertyGroup Label="Debug" Condition="'$(Configuration)'=='Debug'">
-    <Optimize>false</Optimize>
     <DebugType>full</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>..\..\_Build\Debug\lib\</OutputPath>
-    <DocumentationFile>..\..\_Build\Debug\lib\$(TargetFramework)\Xtensive.Orm.Oracle.xml</DocumentationFile>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
   </PropertyGroup>
-
   <PropertyGroup Label="Release" Condition="'$(Configuration)'=='Release'">
-    <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
-    <OutputPath>..\..\_Build\Release\lib\</OutputPath>
-    <DocumentationFile>..\..\_Build\Release\lib\$(TargetFramework)\Xtensive.Orm.Oracle.xml</DocumentationFile>
-    <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="2.18.3" />
   </ItemGroup>
-  
   <ItemGroup>
     <ProjectReference Include="..\Xtensive.Orm\Xtensive.Orm.csproj" />
   </ItemGroup>

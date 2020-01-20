@@ -3,13 +3,12 @@
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <EnableDefaultItems>false</EnableDefaultItems>
     <IsPackable>true</IsPackable>
+    <OutputPath>..\..\_Build\$(Configuration)\lib\</OutputPath>
+    <DocumentationFile>..\..\_Build\$(Configuration)\lib\$(TargetFramework)\Xtensive.Orm.PostgreSql.xml</DocumentationFile>
   </PropertyGroup>
-
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <OutputType>Library</OutputType>
     <RootNamespace>Xtensive</RootNamespace>
-    <AssemblyName>Xtensive.Orm.PostgreSql</AssemblyName>
     <PackageId>Xtensive.Orm.PostgreSql</PackageId>
     <Title>$(DoProductName) provider for PostgreSQL</Title>
     <AssemblyTitle>$(Title)</AssemblyTitle>
@@ -19,28 +18,17 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <WarningLevel>2</WarningLevel>
   </PropertyGroup>
-
   <PropertyGroup Label="Debug" Condition="'$(Configuration)'=='Debug'">
-    <Optimize>false</Optimize>
     <DebugType>full</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>..\..\_Build\Debug\lib\</OutputPath>
-    <DocumentationFile>..\..\_Build\Debug\lib\$(TargetFramework)\Xtensive.Orm.PostgreSql.xml</DocumentationFile>
     <DefineConstants>TRACE;DEBUG;NETSTANDARD</DefineConstants>
   </PropertyGroup>
-
   <PropertyGroup Label="Release" Condition="'$(Configuration)'=='Release'">
-    <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
-    <OutputPath>..\..\_Build\Release\lib\</OutputPath>
-    <DocumentationFile>..\..\_Build\Release\lib\$(TargetFramework)\Xtensive.Orm.PostgreSql.xml</DocumentationFile>
     <DefineConstants>TRACE;NETSTANDARD</DefineConstants>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Npgsql" Version="4.0.5" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Xtensive.Orm\Xtensive.Orm.csproj" />
   </ItemGroup>

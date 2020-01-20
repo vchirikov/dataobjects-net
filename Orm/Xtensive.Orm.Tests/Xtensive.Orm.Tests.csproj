@@ -1,39 +1,26 @@
-﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <EnableDefaultItems>false</EnableDefaultItems>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <AssemblySearchPaths>$(AssemblySearchPaths);{GAC}</AssemblySearchPaths>
     <IsPackable>false</IsPackable>
+    <OutputPath>..\..\_Build\$(Configuration)\lib\</OutputPath>
   </PropertyGroup>
-
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <RuntimeFrameworkVersion>2.0.3</RuntimeFrameworkVersion>
-    <OutputType>Library</OutputType>
-    <RootNamespace>Xtensive.Orm.Tests</RootNamespace>
-    <AssemblyName>Xtensive.Orm.Tests</AssemblyName>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\Orm.snk</AssemblyOriginatorKeyFile>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <WarningLevel>2</WarningLevel>
   </PropertyGroup>
-
-  <PropertyGroup Label="Debug" Condition="'$(Configuration)'=='Debug'">
-    <Optimize>false</Optimize>
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>..\..\_Build\Debug\lib\</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
-  </PropertyGroup>
-
+  <PropertyGroup Label="Debug" Condition="'$(Configuration)'=='Debug'" />
   <PropertyGroup Label="Release" Condition="'$(Configuration)'=='Release'">
-    <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
-    <OutputPath>..\..\_Build\Release\lib\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
-
-    <ItemGroup>
+  <Import Project="..\..\MSBuild\DataObjects.Net.InternalBuild.targets" />
+  <ItemGroup>
     <!-- <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" /> -->
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.2" />
     <PackageReference Include="Npgsql" Version="4.0.5" />
@@ -46,12 +33,10 @@
     <PackageReference Include="System.Dynamic.Runtime" Version="4.3.0.0" />
     <!-- <PackageReference Include="Microsoft.CSharp" Version="4.4.0" />-->
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Xtensive.Orm.Tests.Framework\Xtensive.Orm.Tests.Framework.csproj" />
     <ProjectReference Include="..\Xtensive.Orm\Xtensive.Orm.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <Compile Include="Configuration\AppConfigTest.cs" />
     <Compile Include="Configuration\SchemaTest.cs" />
@@ -881,7 +866,6 @@
     <Compile Include="_Manual\Validation\PhoneNumberConstraint.cs" />
     <Compile Include="_Manual\Validation\TestFixture.cs" />
   </ItemGroup>
-
   <ItemGroup>
     <Content Include="Chinook.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -962,5 +946,4 @@
       <DependentUpon>TwoPartsModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
-  <Import Project="..\..\MSBuild\DataObjects.Net.InternalBuild.targets" />
 </Project>
