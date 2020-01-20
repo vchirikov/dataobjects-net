@@ -7,13 +7,14 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Microsoft.Data.SqlClient;
 using Xtensive.Core;
 using Xtensive.Orm;
 using Xtensive.Sql.Info;
-using SqlServerConnection = System.Data.SqlClient.SqlConnection;
+using SqlServerConnection = Microsoft.Data.SqlClient.SqlConnection;
 
 namespace Xtensive.Sql.Drivers.SqlServer
 {
@@ -65,7 +66,7 @@ namespace Xtensive.Sql.Drivers.SqlServer
       SqlHelper.ValidateConnectionUrl(url);
 
       var builder = new SqlConnectionStringBuilder();
-      
+
       // host, port, database
       if (url.Port==0)
         builder.DataSource = url.Host;

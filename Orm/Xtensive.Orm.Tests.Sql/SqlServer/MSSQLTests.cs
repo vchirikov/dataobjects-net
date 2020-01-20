@@ -3830,7 +3830,7 @@ namespace Xtensive.Orm.Tests.Sql.SqlServer
       SqlTableRef unitMeasure = SqlDml.TableRef(Catalog.Schemas["Person"].Tables["Contact"]);
       SqlInsert insert = SqlDml.Insert(unitMeasure);
 
-      Assert.Throws<System.Data.SqlClient.SqlException>(() => Assert.IsTrue(CompareExecuteNonQuery(nativeSql, insert)));
+      Assert.Throws<Microsoft.Data.SqlClient.SqlException>(() => Assert.IsTrue(CompareExecuteNonQuery(nativeSql, insert)));
     }
 
     [Test]

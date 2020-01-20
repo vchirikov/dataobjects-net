@@ -3,7 +3,7 @@
 
 <PropertyGroup>
     <DoVersion>6.0.0</DoVersion>
-    <DoVersionSuffix></DoVersionSuffix>
+    <DoVersionSuffix>microsoft-sqlclient</DoVersionSuffix>
 </PropertyGroup>
 
 </Project>

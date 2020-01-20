@@ -4,7 +4,7 @@
 
 using System;
 using Xtensive.Sql.Info;
-using SqlServerConnection = System.Data.SqlClient.SqlConnection;
+using SqlServerConnection = Microsoft.Data.SqlClient.SqlConnection;
 
 namespace Xtensive.Sql.Drivers.SqlServer.v09
 {
@@ -151,7 +151,7 @@ namespace Xtensive.Sql.Drivers.SqlServer.v09
         IndexFeatures.FillFactor |
         IndexFeatures.Unique |
         IndexFeatures.NonKeyColumns |
-        IndexFeatures.SortOrder | 
+        IndexFeatures.SortOrder |
         IndexFeatures.FullText;
       indexInfo.PartitionMethods = PartitionMethods.Range;
       return indexInfo;
@@ -230,7 +230,7 @@ namespace Xtensive.Sql.Drivers.SqlServer.v09
 
       types.Boolean = DataTypeInfo.Range(SqlType.Boolean, common | index,
         ValueRange.Bool, "bit");
-     
+
       types.UInt8 = DataTypeInfo.Range(SqlType.UInt8, common | index | identity,
         ValueRange.Byte, "tinyint");
 
@@ -245,7 +245,7 @@ namespace Xtensive.Sql.Drivers.SqlServer.v09
 
       types.Decimal = DataTypeInfo.Fractional(SqlType.Decimal, common | index,
         ValueRange.Decimal, 38, "decimal", "numeric");
-      
+
       types.Float = DataTypeInfo.Range(SqlType.Float, common | index,
         ValueRange.Float, "real");
 
@@ -263,7 +263,7 @@ namespace Xtensive.Sql.Drivers.SqlServer.v09
       types.Binary = DataTypeInfo.Stream(SqlType.Binary, common | index, 4000, "binary");
       types.VarBinary = DataTypeInfo.Stream(SqlType.VarBinary, common | index, 4000, "varbinary");
       types.VarBinaryMax = DataTypeInfo.Regular(SqlType.VarBinaryMax, common, "varbinary(max)", "image");
-      
+
       types.Guid = DataTypeInfo.Regular(SqlType.Guid, common | index, "uniqueidentifier");
 
       return types;

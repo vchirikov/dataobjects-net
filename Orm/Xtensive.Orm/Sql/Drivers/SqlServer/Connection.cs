@@ -7,12 +7,13 @@
 using System;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Data.SqlClient;
 using Xtensive.Orm;
-using SqlServerConnection = System.Data.SqlClient.SqlConnection;
+using SqlServerConnection = Microsoft.Data.SqlClient.SqlConnection;
 
 namespace Xtensive.Sql.Drivers.SqlServer
 {
@@ -94,7 +95,7 @@ namespace Xtensive.Sql.Drivers.SqlServer
       EnsureTrasactionIsNotActive();
       activeTransaction = underlyingConnection.BeginTransaction(isolationLevel);
     }
-    
+
     /// <inheritdoc/>
     public override void MakeSavepoint(string name)
     {

@@ -5,7 +5,7 @@
 // Created:    2008.19.09
 
 using System.Collections.Generic;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using NUnit.Framework;
 using Xtensive.Orm.Tests;
 using Xtensive.Orm.Configuration;
