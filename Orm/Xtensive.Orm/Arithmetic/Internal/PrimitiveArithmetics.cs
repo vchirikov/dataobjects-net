@@ -35,13 +35,13 @@ namespace Xtensive.Arithmetic
     {
       get { return Byte.MaxValue; }
     }
-    
+
     /// <inheritdoc/>
     public override Byte MinValue
     {
       get { return Byte.MinValue; }
     }
-    
+
     /// <inheritdoc/>
     public override bool IsSigned
     {
@@ -140,7 +140,7 @@ namespace Xtensive.Arithmetic
     {
     }
   }
-  
+
   [Serializable]
   internal sealed class SByteArithmetic
     : ArithmeticBase<SByte>
@@ -166,13 +166,13 @@ namespace Xtensive.Arithmetic
     {
       get { return SByte.MaxValue; }
     }
-    
+
     /// <inheritdoc/>
     public override SByte MinValue
     {
       get { return SByte.MinValue; }
     }
-    
+
     /// <inheritdoc/>
     public override bool IsSigned
     {
@@ -271,7 +271,7 @@ namespace Xtensive.Arithmetic
     {
     }
   }
-  
+
   [Serializable]
   internal sealed class CharArithmetic
     : ArithmeticBase<Char>
@@ -297,13 +297,13 @@ namespace Xtensive.Arithmetic
     {
       get { return Char.MaxValue; }
     }
-    
+
     /// <inheritdoc/>
     public override Char MinValue
     {
       get { return Char.MinValue; }
     }
-    
+
     /// <inheritdoc/>
     public override bool IsSigned
     {
@@ -402,7 +402,7 @@ namespace Xtensive.Arithmetic
     {
     }
   }
-  
+
   [Serializable]
   internal sealed class Int16Arithmetic
     : ArithmeticBase<Int16>
@@ -428,13 +428,13 @@ namespace Xtensive.Arithmetic
     {
       get { return Int16.MaxValue; }
     }
-    
+
     /// <inheritdoc/>
     public override Int16 MinValue
     {
       get { return Int16.MinValue; }
     }
-    
+
     /// <inheritdoc/>
     public override bool IsSigned
     {
@@ -533,7 +533,7 @@ namespace Xtensive.Arithmetic
     {
     }
   }
-  
+
   [Serializable]
   internal sealed class UInt16Arithmetic
     : ArithmeticBase<UInt16>
@@ -559,13 +559,13 @@ namespace Xtensive.Arithmetic
     {
       get { return UInt16.MaxValue; }
     }
-    
+
     /// <inheritdoc/>
     public override UInt16 MinValue
     {
       get { return UInt16.MinValue; }
     }
-    
+
     /// <inheritdoc/>
     public override bool IsSigned
     {
@@ -664,7 +664,7 @@ namespace Xtensive.Arithmetic
     {
     }
   }
-  
+
   [Serializable]
   internal sealed class Int32Arithmetic
     : ArithmeticBase<Int32>
@@ -690,13 +690,13 @@ namespace Xtensive.Arithmetic
     {
       get { return Int32.MaxValue; }
     }
-    
+
     /// <inheritdoc/>
     public override Int32 MinValue
     {
       get { return Int32.MinValue; }
     }
-    
+
     /// <inheritdoc/>
     public override bool IsSigned
     {
@@ -795,7 +795,7 @@ namespace Xtensive.Arithmetic
     {
     }
   }
-  
+
   [Serializable]
   internal sealed class UInt32Arithmetic
     : ArithmeticBase<UInt32>
@@ -821,13 +821,13 @@ namespace Xtensive.Arithmetic
     {
       get { return UInt32.MaxValue; }
     }
-    
+
     /// <inheritdoc/>
     public override UInt32 MinValue
     {
       get { return UInt32.MinValue; }
     }
-    
+
     /// <inheritdoc/>
     public override bool IsSigned
     {
@@ -926,7 +926,7 @@ namespace Xtensive.Arithmetic
     {
     }
   }
-  
+
   [Serializable]
   internal sealed class Int64Arithmetic
     : ArithmeticBase<Int64>
@@ -952,13 +952,13 @@ namespace Xtensive.Arithmetic
     {
       get { return Int64.MaxValue; }
     }
-    
+
     /// <inheritdoc/>
     public override Int64 MinValue
     {
       get { return Int64.MinValue; }
     }
-    
+
     /// <inheritdoc/>
     public override bool IsSigned
     {
@@ -1057,7 +1057,7 @@ namespace Xtensive.Arithmetic
     {
     }
   }
-  
+
   [Serializable]
   internal sealed class UInt64Arithmetic
     : ArithmeticBase<UInt64>
@@ -1083,13 +1083,13 @@ namespace Xtensive.Arithmetic
     {
       get { return UInt64.MaxValue; }
     }
-    
+
     /// <inheritdoc/>
     public override UInt64 MinValue
     {
       get { return UInt64.MinValue; }
     }
-    
+
     /// <inheritdoc/>
     public override bool IsSigned
     {
@@ -1188,7 +1188,7 @@ namespace Xtensive.Arithmetic
     {
     }
   }
-  
+
   [Serializable]
   internal sealed class DecimalArithmetic
     : ArithmeticBase<Decimal>
@@ -1214,13 +1214,13 @@ namespace Xtensive.Arithmetic
     {
       get { return Decimal.MaxValue; }
     }
-    
+
     /// <inheritdoc/>
     public override Decimal MinValue
     {
       get { return Decimal.MinValue; }
     }
-    
+
     /// <inheritdoc/>
     public override bool IsSigned
     {
@@ -1319,7 +1319,7 @@ namespace Xtensive.Arithmetic
     {
     }
   }
-  
+
   [Serializable]
   internal sealed class SingleArithmetic
     : ArithmeticBase<Single>
@@ -1345,13 +1345,13 @@ namespace Xtensive.Arithmetic
     {
       get { return Single.MaxValue; }
     }
-    
+
     /// <inheritdoc/>
     public override Single MinValue
     {
       get { return Single.MinValue; }
     }
-    
+
     /// <inheritdoc/>
     public override bool IsSigned
     {
@@ -1450,7 +1450,7 @@ namespace Xtensive.Arithmetic
     {
     }
   }
-  
+
   [Serializable]
   internal sealed class DoubleArithmetic
     : ArithmeticBase<Double>
@@ -1476,13 +1476,13 @@ namespace Xtensive.Arithmetic
     {
       get { return Double.MaxValue; }
     }
-    
+
     /// <inheritdoc/>
     public override Double MinValue
     {
       get { return Double.MinValue; }
     }
-    
+
     /// <inheritdoc/>
     public override bool IsSigned
     {
@@ -1581,5 +1581,5 @@ namespace Xtensive.Arithmetic
     {
     }
   }
-  
+
 }

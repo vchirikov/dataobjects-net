@@ -14,9 +14,9 @@ using Xtensive.Arithmetic;
 namespace Xtensive.Arithmetic
 {
 <#
-var types = new[] { 
-  typeof(byte), 
-  typeof(sbyte), 
+var types = new[] {
+  typeof(byte),
+  typeof(sbyte),
   typeof(char),
   typeof(short),
   typeof(ushort),
@@ -57,13 +57,13 @@ foreach (var type in types) {
     {
       get { return <#= primitiveName #>.MaxValue; }
     }
-    
+
     /// <inheritdoc/>
     public override <#= primitiveName #> MinValue
     {
       get { return <#= primitiveName #>.MinValue; }
     }
-    
+
     /// <inheritdoc/>
     public override bool IsSigned
     {
@@ -162,7 +162,7 @@ foreach (var type in types) {
     {
     }
   }
-  
+
 <#
   }
 #>
