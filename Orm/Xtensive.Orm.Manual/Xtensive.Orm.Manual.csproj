@@ -39,9 +39,6 @@
     <Content Include="Structures\MappingSchema.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="LazyLoading\" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="FutureQueries\FutureQueries.sql" />
     <None Include="Prefetch\Prefetch.sql" />
     <None Include="Structures\Diagrams.pptx" />

@@ -3,6 +3,7 @@
     <IsPackable>true</IsPackable>
     <DocumentationFile>..\..\_Build\$(Configuration)\lib\$(TargetFramework)\Xtensive.Orm.xml</DocumentationFile>
     <OutputPath>..\..\_Build\$(Configuration)\lib\</OutputPath>
+
   </PropertyGroup>
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -21,13 +22,16 @@
   </PropertyGroup>
   <PropertyGroup Label="Release" Condition="'$(Configuration)'=='Release'">
     <DefineConstants>TRACE;NETSTANDARD</DefineConstants>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
   </PropertyGroup>
   <Import Project="NuGetContent.targets" />
   <ItemGroup Label="Packages" Condition=" '$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="1.1.0" />
-    <PackageReference Include="System.Reflection.Emit" Version="4.3.0" />
-    <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.3.0" />
+    <PackageReference Include="System.Reflection.Emit" Version="4.7.0" />
+    <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.7.0" />
   </ItemGroup>
   <ItemGroup Label="T4GeneratorsUpdaters">
     <None Update="Arithmetic\Internal\PrimitiveArithmetics.tt">
