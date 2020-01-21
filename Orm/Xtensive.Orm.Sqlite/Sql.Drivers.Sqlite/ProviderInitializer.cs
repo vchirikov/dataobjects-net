@@ -72,7 +72,7 @@ namespace Xtensive.Sql.Drivers.Sqlite
         var localApplicationData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         if (string.IsNullOrEmpty(localApplicationData))
           throw new InvalidOperationException(Strings.ExLocalApplicationDataIsNotAvailableSetDomainConfiguratioNativeLibraryCacheFolder);
-        basePath = Path.Combine(Path.Combine(localApplicationData, ThisAssembly.ProductName), LibraryDirectory);
+        basePath = Path.Combine(Path.Combine(localApplicationData, "Xtensive.Orm.SQLite"), LibraryDirectory);
       }
 
       return Path.Combine(Path.Combine(basePath, moduleHash), LibraryFileName);
@@ -107,7 +107,7 @@ namespace Xtensive.Sql.Drivers.Sqlite
     {
       var hash = GetLibraryHash();
       var moduleFileName = GetLibraryFileName(nativeLibraryCacheFolder, hash);
-      var mutexName = string.Format(LibraryMutexFormat, ThisAssembly.ProductName, hash);
+      var mutexName = string.Format(LibraryMutexFormat, "Xtensive.Orm.SQLite", hash);
 
       using (var mutex = new Mutex(false, mutexName)) {
         mutex.WaitOne();
