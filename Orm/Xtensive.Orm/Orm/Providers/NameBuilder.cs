@@ -5,6 +5,7 @@
 // Created:    2007.08.27
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -24,7 +25,7 @@ using TypeInfo = Xtensive.Orm.Model.TypeInfo;
 namespace Xtensive.Orm.Providers
 {
   /// <summary>
-  /// Name builder for <see cref="Orm.Model.DomainModel"/> nodes 
+  /// Name builder for <see cref="Orm.Model.DomainModel"/> nodes
   /// Provides names according to a set of naming rules contained in
   /// <see cref="NamingConvention"/>.
   /// </summary>
@@ -35,9 +36,8 @@ namespace Xtensive.Orm.Providers
     private const string GenericTypePattern = "{0}({1})";
     private const string ReferenceForeignKeyFormat = "FK_{0}_{1}_{2}";
     private const string HierarchyForeignKeyFormat = "FK_{0}_{1}";
-
-    private readonly Dictionary<Pair<Type, string>, string> fieldNameCache = new Dictionary<Pair<Type, string>, string>();
-    private readonly object _lock = new object();
+    private readonly ConcurrentDictionary<PropertyInfo, string> fieldNameCache = new ConcurrentDictionary<PropertyInfo, string>();
+    private static Func<PropertyInfo, string> _fieldNameCacheValueFactory = k => k.GetAttribute<OverrideFieldNameAttribute>()?.Name ?? k.Name;
     private readonly int maxIdentifierLength;
     private readonly NamingConvention namingConvention;
     private readonly bool isMultidatabase;
@@ -69,12 +69,12 @@ namespace Xtensive.Orm.Providers
       var result = type.Name.IsNullOrEmpty() ? underlyingTypeName : type.Name;
       switch (namingConvention.NamespacePolicy) {
         case NamespacePolicy.Synonymize: {
-          string synonym;
-          if (!namingConvention.NamespaceSynonyms.TryGetValue(@namespace, out synonym))
-            synonym = @namespace;
-          if (!synonym.IsNullOrEmpty())
-            result = string.Format("{0}.{1}", synonym, result);
-        }
+            string synonym;
+            if (!namingConvention.NamespaceSynonyms.TryGetValue(@namespace, out synonym))
+              synonym = @namespace;
+            if (!synonym.IsNullOrEmpty())
+              result = string.Format("{0}.{1}", synonym, result);
+          }
           break;
         case NamespacePolicy.AsIs:
           if (!@namespace.IsNullOrEmpty())
@@ -112,7 +112,7 @@ namespace Xtensive.Orm.Providers
       else {
         for (int i = 0; i < arguments.Length; i++) {
           var argument = arguments[i];
-          if (argument.IsSubclassOf(typeof (Persistent))) {
+          if (argument.IsSubclassOf(typeof(Persistent))) {
             var argTypeDef = context.ModelDefBuilder.ProcessType(argument);
             names[i] = argTypeDef.Name;
           }
@@ -181,39 +181,16 @@ namespace Xtensive.Orm.Providers
       return result;
     }
 
+
     private string BuildFieldNameInternal(PropertyInfo propertyInfo)
-    {
-      var key = new Pair<Type, string>(propertyInfo.ReflectedType, propertyInfo.Name);
-
-      lock (fieldNameCache) {
-        string result;
-        if (fieldNameCache.TryGetValue(key, out result))
-          return result;
-        var attribute = propertyInfo.GetAttribute<OverrideFieldNameAttribute>();
-        if (attribute!=null) {
-          result = attribute.Name;
-          fieldNameCache.Add(key, result);
-          return result;
-        }
-      }
-
-      return propertyInfo.Name;
-    }
+      => fieldNameCache.GetOrAdd(propertyInfo, _fieldNameCacheValueFactory);
 
     /// <summary>
     /// Builds the name of the field.
     /// </summary>
     /// <param name="propertyInfo">The property info.</param>
     public string BuildFieldName(PropertyInfo propertyInfo)
-    {
-      lock (fieldNameCache) {
-        var key = new Pair<Type, string>(propertyInfo.ReflectedType, propertyInfo.Name);
-        string result;
-        return fieldNameCache.TryGetValue(key, out result)
-          ? result
-          : propertyInfo.Name;
-      }
-    }
+      => fieldNameCache.TryGetValue(propertyInfo, out string result) ? result : propertyInfo.Name;
 
     /// <summary>
     /// Builds the name of the explicitly implemented field.
@@ -273,7 +250,7 @@ namespace Xtensive.Orm.Providers
     }
 
     /// <summary>
-    /// Gets the name for <see cref="ColumnInfo"/> object concatenating 
+    /// Gets the name for <see cref="ColumnInfo"/> object concatenating
     /// <see cref="Node.Name"/> of its declaring type with the original column name.
     /// </summary>
     /// <param name="column">The <see cref="ColumnInfo"/> object.</param>
@@ -441,9 +418,9 @@ namespace Xtensive.Orm.Providers
     /// <returns>Association name.</returns>
     public string BuildAssociationName(AssociationInfo target)
     {
-      return ApplyNamingRules(string.Format(AssociationPattern, 
-        target.OwnerType.Name, 
-        target.OwnerField.Name, 
+      return ApplyNamingRules(string.Format(AssociationPattern,
+        target.OwnerType.Name,
+        target.OwnerField.Name,
         target.TargetType.Name));
     }
 
@@ -456,9 +433,9 @@ namespace Xtensive.Orm.Providers
     /// <returns>Association name.</returns>
     public string BuildAssociationName(TypeInfo ownerType, FieldInfo ownerField, TypeInfo targetType)
     {
-      return ApplyNamingRules(string.Format(AssociationPattern, 
-        ownerType.Name, 
-        ownerField.Name, 
+      return ApplyNamingRules(string.Format(AssociationPattern,
+        ownerType.Name,
+        ownerField.Name,
         targetType.Name));
     }
 
@@ -470,9 +447,9 @@ namespace Xtensive.Orm.Providers
     /// <returns>Auxiliary type mapping name.</returns>
     public string BuildAuxiliaryTypeMappingName(AssociationInfo target)
     {
-      return ApplyNamingRules(string.Format(AssociationPattern, 
-        target.OwnerType.MappingName ?? target.OwnerType.Name, 
-        target.OwnerField.MappingName ?? target.OwnerField.Name, 
+      return ApplyNamingRules(string.Format(AssociationPattern,
+        target.OwnerType.MappingName ?? target.OwnerType.Name,
+        target.OwnerField.MappingName ?? target.OwnerField.Name,
         target.TargetType.MappingName ?? target.TargetType.Name));
     }
 
