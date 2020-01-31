@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-<Import Project="$(MSBuildThisFileDirectory)\Version.props" />
+  <PropertyGroup Label="Version">
+    <DoVersion>0.1.2</DoVersion>
+    <DoVersionSuffix>beta-2-microsoft-sqlclient</DoVersionSuffix>
+  </PropertyGroup>
 
-<!-- Compute intermediate values. To avoid conflicts name all custom variables with Do prefix. -->
-<PropertyGroup>
+  <!-- Compute intermediate values. To avoid conflicts name all custom variables with Do prefix. -->
+  <PropertyGroup>
+    <SolutionDir Condition="$(SolutionDir) == ''">$(MSBuildThisFileDirectory.TrimEnd('\').TrimEnd('/'))\</SolutionDir>
     <DoBuildNumber>$(BUILD_NUMBER)</DoBuildNumber>
     <DoBuildNumber Condition="'$(DoBuildNumber)'==''">0</DoBuildNumber>
     <DoBuildYear>$([System.DateTime]::Today.Year)</DoBuildYear>
@@ -19,10 +23,17 @@
     <DoVersionName Condition="'$(DoVersionSuffix)'!=''">$(DoVersionName)-$(DoVersionSuffix)</DoVersionName>
     <DoPackageIcon>$(MSBuildThisFileDirectory)\do-nuget.png</DoPackageIcon>
     <DoRevFile>$(MSBuildThisFileDirectory)\_Build\rev.txt</DoRevFile>
-</PropertyGroup>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <NoLogo>true</NoLogo>
+    <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
+  </PropertyGroup>
 
-<!-- Populate standard properties. -->
-<PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release' AND $(MSBuildProjectName.Contains('Tests')) == 'false'">
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <!-- Populate standard properties. -->
+  <PropertyGroup>
     <Product>$(DoProductName)</Product>
     <Company>$(DoProductAuthors)</Company>
     <Authors>$(DoProductAuthors)</Authors>
@@ -37,11 +48,16 @@
     <PackageOutputPath>..\..\_Build\$(Configuration)\packages</PackageOutputPath>
     <RepositoryUrl>https://github.com/DataObjects-NET/dataobjects-net</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-</PropertyGroup>
+  </PropertyGroup>
 
-<ItemGroup>
+  <ItemGroup>
     <None Include="$(DoPackageIcon)" Pack="true" PackagePath="." Visible="false" />
     <None Include="$(DoRevFile)" Pack="true" PackagePath="." Visible="false" Condition="Exists('$(DoRevFile)')" />
-</ItemGroup>
+  </ItemGroup>
+  <Target Name="ExportRev" Condition="Exists('.git\index') AND '$(Configuration)' == 'Release'">
+    <MakeDir Directories="_Build" />
+    <Exec Command="git rev-parse HEAD > rev.txt" WorkingDirectory="_Build" />
+  </Target>
+
 
 </Project>

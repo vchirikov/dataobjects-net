@@ -6,6 +6,7 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\Orm\Orm.snk</AssemblyOriginatorKeyFile>
     <OutputPath>..\..\_Build\$(Configuration)\tools\weaver\</OutputPath>
+    <RollForward>Major</RollForward>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Mono.Cecil" Version="0.11.0" />
