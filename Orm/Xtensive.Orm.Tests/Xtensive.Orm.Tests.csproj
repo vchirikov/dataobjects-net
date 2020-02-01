@@ -35,9 +35,6 @@
     <None Update="Model\InterfaceAssociationsModelGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
     </None>
-    <None Update="Northwind.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="Upgrade\HugeModelUpgrade\Models\ModelWithMappedTypes.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
     </None>
@@ -101,5 +98,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>TwoPartsModel.tt</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="_Files\*.xml" />
+    <Content Include="_Files\*.xml">
+      <Link>%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>

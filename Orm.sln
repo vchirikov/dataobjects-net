@@ -65,7 +65,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xtensive.Orm.Security.Tests
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xtensive.Orm.Tracking.Tests", "Extensions\Xtensive.Orm.Tracking.Tests\Xtensive.Orm.Tracking.Tests.csproj", "{15CC7358-3A5B-4146-A5CB-78DAE75E88E6}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_root", "_root", "{C02BF3D5-F591-454D-81D4-A3135A24FB81}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cfg", "Cfg", "{C02BF3D5-F591-454D-81D4-A3135A24FB81}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		Directory.Build.props = Directory.Build.props

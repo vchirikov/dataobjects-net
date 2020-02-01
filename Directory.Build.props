@@ -6,7 +6,10 @@
     <DoVersionSuffix>beta-2-microsoft-sqlclient</DoVersionSuffix>
   </PropertyGroup>
 
-  <!-- Compute intermediate values. To avoid conflicts name all custom variables with Do prefix. -->
+  <!-- 
+  Intermediate values are computed here. 
+  Name all custom variables with "Do" prefix to avoid conflicts. 
+  -->
   <PropertyGroup>
     <SolutionDir Condition="$(SolutionDir) == ''">$(MSBuildThisFileDirectory.TrimEnd('\').TrimEnd('/'))\</SolutionDir>
     <DoBuildNumber>$(BUILD_NUMBER)</DoBuildNumber>
@@ -45,7 +48,7 @@
     <PackageIcon>do-nuget.png</PackageIcon>
     <PackageLicense>Apache-2.0</PackageLicense>
     <PackageTags>DataObjects.Net ORM BLL Persistence</PackageTags>
-    <PackageOutputPath>..\..\_Build\$(Configuration)\packages</PackageOutputPath>
+    <PackageOutputPath>$(MSBuildThisFileDirectory)\_Build\$(Configuration)\packages</PackageOutputPath>
     <RepositoryUrl>https://github.com/DataObjects-NET/dataobjects-net</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
