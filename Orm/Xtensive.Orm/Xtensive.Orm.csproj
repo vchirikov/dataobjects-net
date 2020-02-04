@@ -3,7 +3,6 @@
     <IsPackable>true</IsPackable>
     <DocumentationFile>..\..\_Build\$(Configuration)\lib\$(TargetFramework)\Xtensive.Orm.xml</DocumentationFile>
     <OutputPath>..\..\_Build\$(Configuration)\lib\</OutputPath>
-
   </PropertyGroup>
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
