@@ -6,12 +6,13 @@
     <DoVersionSuffix>beta-2-microsoft-sqlclient</DoVersionSuffix>
   </PropertyGroup>
 
-  <!-- 
-  Intermediate values are computed here. 
-  Name all custom variables with "Do" prefix to avoid conflicts. 
+  <!--
+  Intermediate values are computed here.
+  Name all custom variables with "Do" prefix to avoid conflicts.
   -->
   <PropertyGroup>
     <SolutionDir Condition="$(SolutionDir) == ''">$(MSBuildThisFileDirectory.TrimEnd('\').TrimEnd('/'))\</SolutionDir>
+    <Configuration Condition="$(Configuration) == ''">Debug</Configuration>
     <DoBuildNumber>$(BUILD_NUMBER)</DoBuildNumber>
     <DoBuildNumber Condition="'$(DoBuildNumber)'==''">0</DoBuildNumber>
     <DoBuildYear>$([System.DateTime]::Today.Year)</DoBuildYear>
@@ -29,6 +30,15 @@
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <NoLogo>true</NoLogo>
     <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
+    <ArtifactsDir Condition="'$(ArtifactsDir)'==''">$(SolutionDir)_Build/</ArtifactsDir>
+    <BaseIntermediateOutputPath>$([System.IO.Path]::GetFullPath('$(ArtifactsDir)obj/$(Configuration)/$(MSBuildProjectName)'))/</BaseIntermediateOutputPath>
+    <BaseOutputPath >$([System.IO.Path]::GetFullPath('$(ArtifactsDir)bin/$(Configuration)'))/</BaseOutputPath>
+    <BaseOutputPath Condition="$(MSBuildProjectName.Contains('Tests'))">$([System.IO.Path]::GetFullPath('$(ArtifactsDir)tests'))/</BaseOutputPath>
+    <OutputPath>$(BaseOutputPath)</OutputPath>
+    <MSBuildProjectExtensionsPath>$(BaseIntermediateOutputPath)</MSBuildProjectExtensionsPath>
+    <ProjectAssetsFile>$(MSBuildProjectExtensionsPath)/project.assets.json</ProjectAssetsFile>
+    <ProjectAssetsCacheFile>$(MSBuildProjectExtensionsPath)$(MSBuildProjectName).assets.cache</ProjectAssetsCacheFile>
+
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Release' AND $(MSBuildProjectName.Contains('Tests')) == 'false'">

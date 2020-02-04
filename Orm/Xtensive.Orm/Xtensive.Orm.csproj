@@ -1,8 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <IsPackable>true</IsPackable>
-    <DocumentationFile>..\..\_Build\$(Configuration)\lib\$(TargetFramework)\Xtensive.Orm.xml</DocumentationFile>
-    <OutputPath>..\..\_Build\$(Configuration)\lib\</OutputPath>
+    <DocumentationFile>$(SolutionDir)_Build\$(Configuration)\lib\$(TargetFramework)\Xtensive.Orm.xml</DocumentationFile>
+    <OutputPath>$(SolutionDir)_Build\$(Configuration)\lib\</OutputPath>
   </PropertyGroup>
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -25,9 +25,14 @@
     <DebugType>portable</DebugType>
   </PropertyGroup>
   <ItemGroup Label="Build order">
-    <ProjectReference Include="..\..\Weaver\Xtensive.Orm.Weaver\Xtensive.Orm.Weaver.csproj" ReferenceOutputAssembly="false" SkipGetTargetFrameworkProperties="true" />
+    <ProjectReference Include="$(SolutionDir)Weaver\Xtensive.Orm.Weaver\Xtensive.Orm.Weaver.csproj" ReferenceOutputAssembly="false" SkipGetTargetFrameworkProperties="true" />
   </ItemGroup>
-  <Import Project="NuGetContent.targets" />
+  <ItemGroup Label="Nuget content">
+    <Content Include="$(SolutionDir)MSBuild\DataObjects.Net.targets" Visible="false" Pack="true" PackagePath="." />
+    <Content Include="NuGetContent\**" Visible="false" Pack="true" PackagePath="." />
+    <Content Include="$(SolutionDir)_Build\$(Configuration)\tools\weaver\**" Visible="false" Pack="true" PackagePath="tools\weaver\" />
+    <TfmSpecificPackageFile Include="$(SolutionDir)_Build\$(Configuration)\tools\weaver\**" Visible="false" Pack="true" PackagePath="tools\weaver\"  />
+  </ItemGroup>
   <ItemGroup Label="Packages" Condition=" '$(TargetFramework)' == 'netstandard2.0'">
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="1.1.0" />
